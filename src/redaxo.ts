@@ -5,7 +5,15 @@ export type GraphQLResponse = {
     errors?: any;
 };
 
-export default class GraphQLClient {
+export default class RedaxoAdapter {
+    private static ENDPOINT: string;
+    private static ROOT: string;
+
+    public static init(endpoint: string, root: string): void {
+        this.ENDPOINT = endpoint;
+        this.ROOT = root;
+    }
+
     public static async query(
         query: DocumentNode,
         variables: Record<string, any>,
@@ -39,7 +47,7 @@ export default class GraphQLClient {
     }
 
     private static getGraphQLEndpoint(clangId: string): string {
-        const base = import.meta.env.REDAXO_ENDPOINT as string;
+        const base = this.ENDPOINT;
         if (!base) {
             throw new Error(
                 'No GraphQL endpoint defined. Please initialize the GraphQLClient correctly.',
@@ -79,5 +87,9 @@ export default class GraphQLClient {
             .catch((err) => {
                 return { errors: err, data: {} };
             });
+    }
+
+    public static getRedaxoRoot(): string {
+        return this.ROOT;
     }
 }

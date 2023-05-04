@@ -1,9 +1,9 @@
 import { gql } from 'graphql-tag';
 import type { Wildcard } from './@types';
-import GraphQLClient from './client';
+import RedaxoAdapter from './redaxo';
 
 export async function getWildcards(clangId: string) {
-    const { data } = await GraphQLClient.query(REX_WILDCARDS_QRY, {}, clangId);
+    const { data } = await RedaxoAdapter.query(REX_WILDCARDS_QRY, {}, clangId);
     return data.wildCards as Wildcard[];
 }
 

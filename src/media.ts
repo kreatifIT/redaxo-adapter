@@ -1,6 +1,6 @@
 import { gql } from 'graphql-tag';
 import { REX_MEDIA_FRAGMENT } from './fragments';
-import GraphQLClient from './client';
+import RedaxoAdapter from './redaxo';
 import type { Media } from './@types';
 
 export async function getMedia(
@@ -8,7 +8,7 @@ export async function getMedia(
     mediaType: string,
     clangId: string,
 ) {
-    const { data } = await GraphQLClient.query(
+    const { data } = await RedaxoAdapter.query(
         REX_MEDIA_QRY,
         {
             name,

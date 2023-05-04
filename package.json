@@ -1,29 +1,35 @@
 {
-  "name": "redaxo-adapter",
-  "version": "0.0.1",
-  "description": "An adapter for REDAXO CMS that connects to the graphql Addon",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/kreatifIT/redaxo-adapter.git"
-  },
-  "keywords": [
-    "redaxo",
-    "cms",
-    "headless",
-    "graphql",
-    "adapter"
-  ],
-  "author": "Kreatif GmbH",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/kreatifIT/redaxo-adapter/issues"
-  },
-  "homepage": "https://github.com/kreatifIT/redaxo-adapter#readme",
-  "devDependencies": {
-    "typescript": "^5.0.4"
-  }
+    "name": "redaxo-adapter",
+    "version": "0.0.1",
+    "description": "An adapter for REDAXO CMS that connects to the graphql Addon",
+    "scripts": {
+        "clean": "rm -rf ./lib",
+        "format": "prettier --write \"src/**/*.ts\"",
+        "build": "npm run clean && tsc",
+        "prepack": "npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/kreatifIT/redaxo-adapter.git"
+    },
+    "keywords": [
+        "redaxo",
+        "cms",
+        "headless",
+        "graphql",
+        "adapter"
+    ],
+    "author": "Kreatif GmbH",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/kreatifIT/redaxo-adapter/issues"
+    },
+    "homepage": "https://github.com/kreatifIT/redaxo-adapter#readme",
+    "devDependencies": {
+        "prettier": "^2.8.8",
+        "typescript": "^5.0.4"
+    },
+    "dependencies": {
+        "graphql-tag": "^2.12.6"
+    }
 }

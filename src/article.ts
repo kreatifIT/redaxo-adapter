@@ -7,14 +7,14 @@ import {
     REX_BREADCRUMB_FRAGMENT,
 } from './fragments';
 import type { Article, ArticleIncludes } from './@types';
-import GraphQLClient from './client';
+import RedaxoAdapter from './redaxo';
 
 export async function getArticleByPath(
     path: string,
     clangId: string,
     includes?: ArticleIncludes,
 ) {
-    const { data } = await GraphQLClient.query(
+    const { data } = await RedaxoAdapter.query(
         REX_ARTICLE_BY_PATH_QRY,
         {
             path,
@@ -29,7 +29,7 @@ export async function getRootArticles(
     clangId: string,
     includes?: ArticleIncludes,
 ) {
-    const { data } = await GraphQLClient.query(
+    const { data } = await RedaxoAdapter.query(
         REX_ROOT_ARTICLES_QRY,
         {
             ...getArticleIncludes(includes),
@@ -44,7 +44,7 @@ export async function getArticleById(
     clangId: string,
     includes?: ArticleIncludes,
 ) {
-    const { data } = await GraphQLClient.query(
+    const { data } = await RedaxoAdapter.query(
         REX_ARTICLE_QRY,
         {
             id,
@@ -59,7 +59,7 @@ export async function getSiteStartArticle(
     clangId: string,
     includes?: ArticleIncludes,
 ) {
-    const { data } = await GraphQLClient.query(
+    const { data } = await RedaxoAdapter.query(
         REX_SITE_START_ARTICLE_QRY,
         {
             ...getArticleIncludes(includes),

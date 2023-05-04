@@ -1,7 +1,7 @@
 import { gql } from 'graphql-tag';
 import { REX_CATEGORY_FRAGMENT, REX_ARTICLE_FRAGMENT } from './fragments';
 import type { Category, CategoryIncludes } from './@types';
-import GraphQLClient from './client';
+import RedaxoAdapter from './redaxo';
 
 const FRAGMENTS = gql`
     ${REX_CATEGORY_FRAGMENT}
@@ -20,7 +20,7 @@ export async function getRootCategories(
     clangId: string,
     includes?: CategoryIncludes,
 ) {
-    const { data } = await GraphQLClient.query(
+    const { data } = await RedaxoAdapter.query(
         REX_ROOT_CATEGORIES_QRY,
         {
             ...getCategoryIncludes(includes),

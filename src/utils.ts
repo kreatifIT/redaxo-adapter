@@ -1,3 +1,5 @@
+import RedaxoAdapter from './redaxo';
+
 export function parseModuleValues(values?: Record<number, any> | string): any {
     if (!values) return {};
     if (typeof values === 'string') return JSON.parse(values);
@@ -5,7 +7,7 @@ export function parseModuleValues(values?: Record<number, any> | string): any {
 }
 
 export function getMediaUrl(media: string, imageType?: string) {
-    const REDAXO_ROOT = import.meta.env.REDAXO_ROOT as string;
+    const REDAXO_ROOT = RedaxoAdapter.getRedaxoRoot();
     if (imageType) {
         return `${REDAXO_ROOT}/media/${imageType}/${media}`;
     }

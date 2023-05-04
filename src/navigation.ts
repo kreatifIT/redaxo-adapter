@@ -1,5 +1,5 @@
 import type { NavigationItem } from './@types';
-import GraphQLClient from './client';
+import RedaxoAdapter from './redaxo';
 import { REX_NAVIGATION_ITEM_FRAGMENT } from './fragments';
 import { gql } from 'graphql-tag';
 
@@ -8,7 +8,7 @@ export async function getRootNavigation(
     id: string,
     depth: number,
 ) {
-    const { data } = await GraphQLClient.query(
+    const { data } = await RedaxoAdapter.query(
         REX_ROOT_NAVIGATION_QRY,
         {
             depth,
@@ -24,7 +24,7 @@ export async function getNavigation(
     articleId: string | undefined,
     name: string,
 ) {
-    const { data } = await GraphQLClient.query(
+    const { data } = await RedaxoAdapter.query(
         REX_NAVIGATION_QRY,
         {
             name,

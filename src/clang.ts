@@ -1,10 +1,10 @@
 import { gql } from 'graphql-tag';
 import { REX_CLANG_FRAGMENT } from './fragments';
 import type { Clang } from './@types';
-import GraphQLClient from './client';
+import RedaxoAdapter from './redaxo';
 
 export async function getClangs(articleId: string, clangId: string) {
-    const { data } = await GraphQLClient.query(
+    const { data } = await RedaxoAdapter.query(
         REX_CLANG_QRY,
         {
             articleId,
