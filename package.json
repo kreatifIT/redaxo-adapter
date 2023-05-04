@@ -1,0 +1,29 @@
+{
+  "name": "redaxo-adapter",
+  "version": "0.0.1",
+  "description": "An adapter for REDAXO CMS that connects to the graphql Addon",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kreatifIT/redaxo-adapter.git"
+  },
+  "keywords": [
+    "redaxo",
+    "cms",
+    "headless",
+    "graphql",
+    "adapter"
+  ],
+  "author": "Kreatif GmbH",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kreatifIT/redaxo-adapter/issues"
+  },
+  "homepage": "https://github.com/kreatifIT/redaxo-adapter#readme",
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  }
+}
