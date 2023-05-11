@@ -3,8 +3,7 @@ import {
     REX_ARTICLE_FRAGMENT,
     REX_CLANG_FRAGMENT,
     REX_ARTICLE_SLICE_FRAGMENT,
-    REX_SEO_FRAGMENT,
-    REX_BREADCRUMB_FRAGMENT,
+    REX_METADATA_FRAGMENT,
 } from './fragments';
 import type { Article, ArticleIncludes } from './@types';
 import { RedaxoAdapter } from './adapter';
@@ -73,8 +72,7 @@ function getArticleIncludes(includes?: ArticleIncludes) {
     return {
         includeSlices: includes?.slices || false,
         includeClang: includes?.clang || false,
-        includeSeo: includes?.seo || false,
-        includeBreadcrumbs: includes?.breadcrumbs || false,
+        includeMetadata: includes?.metadata || false,
     };
 }
 
@@ -82,8 +80,7 @@ const FRAGMENTS = gql`
     ${REX_ARTICLE_FRAGMENT}
     ${REX_CLANG_FRAGMENT}
     ${REX_ARTICLE_SLICE_FRAGMENT}
-    ${REX_SEO_FRAGMENT}
-    ${REX_BREADCRUMB_FRAGMENT}
+    ${REX_METADATA_FRAGMENT}
 `;
 
 const REX_ARTICLE_QRY = gql`
@@ -91,7 +88,7 @@ const REX_ARTICLE_QRY = gql`
         $id: ID!
         $includeClang: Boolean!
         $includeSlices: Boolean!
-        $includeSeo: Boolean!
+        $includeMetadata: Boolean!
         $includeBreadcrumbs: Boolean!
     ) {
         article(id: $id) {
@@ -102,11 +99,8 @@ const REX_ARTICLE_QRY = gql`
             slices @include(if: $includeSlices) {
                 ...ArticleSliceFragment
             }
-            seo @include(if: $includeSeo) {
-                ...SEOFragment
-            }
-            breadcrumbs @include(if: $includeBreadcrumbs) {
-                ...BreadcrumbFragment
+            metadata @include(if: $includeMetadata) {
+                ...MetadataFragment
             }
         }
     }
@@ -118,7 +112,7 @@ const REX_ARTICLE_BY_PATH_QRY = gql`
         $path: String!
         $includeClang: Boolean!
         $includeSlices: Boolean!
-        $includeSeo: Boolean!
+        $includeMetadata: Boolean!
         $includeBreadcrumbs: Boolean!
     ) {
         articleByPath(path: $path) {
@@ -129,11 +123,8 @@ const REX_ARTICLE_BY_PATH_QRY = gql`
             slices @include(if: $includeSlices) {
                 ...ArticleSliceFragment
             }
-            seo @include(if: $includeSeo) {
-                ...SEOFragment
-            }
-            breadcrumbs @include(if: $includeBreadcrumbs) {
-                ...BreadcrumbFragment
+            metadata @include(if: $includeMetadata) {
+                ...MetadataFragment
             }
         }
     }
@@ -144,8 +135,7 @@ const REX_ROOT_ARTICLES_QRY = gql`
     query rootArticles(
         $includeClang: Boolean!
         $includeSlices: Boolean!
-        $includeSeo: Boolean!
-        $includeBreadcrumbs: Boolean!
+        $includeMetadata: Boolean!
     ) {
         rootArticles {
             ...ArticleFragment
@@ -155,11 +145,8 @@ const REX_ROOT_ARTICLES_QRY = gql`
             slices @include(if: $includeSlices) {
                 ...ArticleSliceFragment
             }
-            seo @include(if: $includeSeo) {
-                ...SEOFragment
-            }
-            breadcrumbs @include(if: $includeBreadcrumbs) {
-                ...BreadcrumbFragment
+            metadata @include(if: $includeMetadata) {
+                ...MetadataFragment
             }
         }
     }
@@ -170,7 +157,7 @@ const REX_SITE_START_ARTICLE_QRY = gql`
     query siteStartArticle(
         $includeClang: Boolean!
         $includeSlices: Boolean!
-        $includeSeo: Boolean!
+        $includeMetadata: Boolean!
         $includeBreadcrumbs: Boolean!
     ) {
         siteStartArticle {
@@ -181,11 +168,8 @@ const REX_SITE_START_ARTICLE_QRY = gql`
             slices @include(if: $includeSlices) {
                 ...ArticleSliceFragment
             }
-            seo @include(if: $includeSeo) {
-                ...SEOFragment
-            }
-            breadcrumbs @include(if: $includeBreadcrumbs) {
-                ...BreadcrumbFragment
+            metadata @include(if: $includeMetadata) {
+                ...MetadataFragment
             }
         }
     }

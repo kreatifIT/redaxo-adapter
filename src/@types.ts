@@ -54,15 +54,10 @@ export type Media = {
     height: number;
 };
 
-export type ModuleProps = {
-    slice: ArticleSlice;
-    article: Article;
-};
-
 export type ArticleIncludes = {
     slices?: boolean;
     clang?: boolean;
-    seo?: boolean;
+    metadata?: boolean;
     breadcrumbs?: boolean;
 };
 

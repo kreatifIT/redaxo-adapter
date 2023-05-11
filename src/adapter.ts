@@ -50,7 +50,7 @@ export class RedaxoAdapter {
         const base = this.ENDPOINT;
         if (!base) {
             throw new Error(
-                'No GraphQL endpoint defined. Please initialize the GraphQLClient correctly.',
+                'No GraphQL endpoint defined. Please initialize the RedaxoAdapter.',
             );
         }
         return base.replace('{{clangId}}', clangId);

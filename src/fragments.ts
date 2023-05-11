@@ -14,18 +14,17 @@ export const REX_MEDIA_FRAGMENT = gql`
     }
 `;
 
-export const REX_SEO_FRAGMENT = gql`
-    fragment SEOFragment on Seo {
-        title
-        description
-        canonical
-        robots
-        image {
-            ...MediaFragment
-        }
-        alternateLanguages {
-            langCode
-            url
+export const REX_METADATA_FRAGMENT = gql`
+    fragment MetadataFragment on Metadata {
+        title {
+            description
+            updatedAt
+            createdAt
+            robots
+            canonical
+            image {
+                ...MediaFragment
+            }
         }
     }
     ${REX_MEDIA_FRAGMENT}
