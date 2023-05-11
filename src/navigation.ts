@@ -1,5 +1,5 @@
 import type { NavigationItem } from './@types';
-import RedaxoAdapter from './redaxo';
+import { RedaxoAdapter } from './adapter';
 import { REX_NAVIGATION_ITEM_FRAGMENT } from './fragments';
 import { gql } from 'graphql-tag';
 

@@ -7,7 +7,7 @@ import {
     REX_BREADCRUMB_FRAGMENT,
 } from './fragments';
 import type { Article, ArticleIncludes } from './@types';
-import RedaxoAdapter from './redaxo';
+import { RedaxoAdapter } from './adapter';
 
 export async function getArticleByPath(
     path: string,

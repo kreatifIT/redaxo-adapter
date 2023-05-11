@@ -1,7 +1,7 @@
 import { gql } from 'graphql-tag';
 import { REX_CLANG_FRAGMENT } from './fragments';
 import type { Clang } from './@types';
-import RedaxoAdapter from './redaxo';
+import { RedaxoAdapter } from './adapter';
 
 export async function getClangs(articleId: string, clangId: string) {
     const { data } = await RedaxoAdapter.query(

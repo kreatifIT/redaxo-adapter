@@ -1,4 +1,4 @@
-import RedaxoAdapter from './redaxo';
+import { RedaxoAdapter } from './adapter';
 
 export function parseModuleValues(values?: Record<number, any> | string): any {
     if (!values) return {};

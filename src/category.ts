@@ -1,7 +1,7 @@
 import { gql } from 'graphql-tag';
 import { REX_CATEGORY_FRAGMENT, REX_ARTICLE_FRAGMENT } from './fragments';
 import type { Category, CategoryIncludes } from './@types';
-import RedaxoAdapter from './redaxo';
+import { RedaxoAdapter } from './adapter';
 
 const FRAGMENTS = gql`
     ${REX_CATEGORY_FRAGMENT}

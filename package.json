@@ -1,11 +1,12 @@
 {
     "name": "redaxo-adapter",
-    "version": "0.0.1",
+    "version": "0.0.11",
     "description": "An adapter for REDAXO CMS that connects to the graphql Addon",
     "scripts": {
-        "clean": "rm -rf ./lib",
         "format": "prettier --write \"src/**/*.ts\"",
-        "build": "npm run clean && tsc",
+        "build": "rm -rf dist/ && prettier --write src/ && npm run build:esm && npm run build:cjs",
+        "build:esm": "tsc",
+        "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
         "prepack": "npm run build"
     },
     "repository": {
@@ -21,11 +22,18 @@
     ],
     "author": "Kreatif GmbH",
     "license": "ISC",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/cjs/index.d.ts",
+    "files": [
+        "dist"
+    ],
     "bugs": {
         "url": "https://github.com/kreatifIT/redaxo-adapter/issues"
     },
     "homepage": "https://github.com/kreatifIT/redaxo-adapter#readme",
     "devDependencies": {
+        "@types/node": "^20.1.2",
         "prettier": "^2.8.8",
         "typescript": "^5.0.4"
     },

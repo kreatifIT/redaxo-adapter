@@ -5,7 +5,7 @@ export type GraphQLResponse = {
     errors?: any;
 };
 
-export default class RedaxoAdapter {
+export class RedaxoAdapter {
     private static ENDPOINT: string;
     private static ROOT: string;
 

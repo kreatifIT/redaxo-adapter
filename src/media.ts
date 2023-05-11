@@ -1,6 +1,6 @@
 import { gql } from 'graphql-tag';
 import { REX_MEDIA_FRAGMENT } from './fragments';
-import RedaxoAdapter from './redaxo';
+import { RedaxoAdapter } from './adapter';
 import type { Media } from './@types';
 
 export async function getMedia(
