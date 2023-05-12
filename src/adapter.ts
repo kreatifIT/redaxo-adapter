@@ -8,12 +8,12 @@ export type GraphQLResponse = {
 export class RedaxoAdapter {
     private static ENDPOINT: string;
     private static ROOT: string;
-    private static AUTH_TOKEN: string;
+    private static AUTH_TOKEN: string | undefined;
 
     public static init(
         endpoint: string,
         root: string,
-        authToken: string,
+        authToken?: string,
     ): void {
         this.ENDPOINT = endpoint;
         this.ROOT = root;
