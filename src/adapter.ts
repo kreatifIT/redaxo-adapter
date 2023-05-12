@@ -8,10 +8,16 @@ export type GraphQLResponse = {
 export class RedaxoAdapter {
     private static ENDPOINT: string;
     private static ROOT: string;
+    private static AUTH_TOKEN: string;
 
-    public static init(endpoint: string, root: string): void {
+    public static init(
+        endpoint: string,
+        root: string,
+        authToken: string,
+    ): void {
         this.ENDPOINT = endpoint;
         this.ROOT = root;
+        this.AUTH_TOKEN = authToken;
     }
 
     public static async query(
@@ -64,6 +70,9 @@ export class RedaxoAdapter {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: this.AUTH_TOKEN
+                    ? `Bearer ${this.AUTH_TOKEN}`
+                    : '',
             },
             body: JSON.stringify({
                 ...body,
