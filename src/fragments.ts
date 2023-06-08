@@ -46,8 +46,8 @@ export const REX_ARTICLE_FRAGMENT = gql`
         id
         name
         url
-        createDate
-        updateDate
+        createdAt
+        updatedAt
     }
 `;
 
