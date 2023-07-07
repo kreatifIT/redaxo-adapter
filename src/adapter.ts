@@ -82,15 +82,13 @@ export class RedaxoAdapter {
             })
             .then((res) => {
                 if (res.errors) {
-                    throw new Error('Error in GraphQL response', res.errors);
+                    throw new Error(
+                        'Error in GraphQL response: ' +
+                            JSON.stringify(res.errors, null, 2),
+                        res.errors,
+                    );
                 }
                 return res;
-            })
-            .catch((err) => {
-                throw new Error(
-                    'Error while fetching REDAXO GraphQL endpoint',
-                    err,
-                );
             });
     }
 
