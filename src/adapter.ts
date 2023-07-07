@@ -25,17 +25,13 @@ export class RedaxoAdapter {
         variables: Record<string, any>,
         clangId: string,
     ): Promise<GraphQLResponse> {
-        return new Promise((resolve) => {
-            this.executeRequest(
-                {
-                    query: query.loc?.source.body,
-                    variables,
-                },
-                clangId,
-            ).then((res) => {
-                resolve(res);
-            });
-        });
+        return this.executeRequest(
+            {
+                query: query.loc?.source.body,
+                variables,
+            },
+            clangId,
+        );
     }
 
     public static async mutate(
@@ -86,15 +82,15 @@ export class RedaxoAdapter {
             })
             .then((res) => {
                 if (res.errors) {
-                    console.error(
-                        'GraphQL request failed. Response:\n',
-                        JSON.stringify(res.errors, null, 2),
-                    );
+                    throw new Error('Error in GraphQL response', res.errors);
                 }
                 return res;
             })
             .catch((err) => {
-                return { errors: err, data: {} };
+                throw new Error(
+                    'Error while fetching REDAXO GraphQL endpoint',
+                    err,
+                );
             });
     }
 
