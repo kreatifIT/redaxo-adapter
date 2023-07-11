@@ -2,7 +2,8 @@ export type Article = {
     id: string;
     name: string;
     slices: ArticleSlice[];
-    isStartArticle: boolean;
+    startArticle: boolean;
+    siteStartArticle: boolean;
     url: string;
     clang: Clang;
     createdAt: string;
