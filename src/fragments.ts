@@ -16,15 +16,14 @@ export const REX_MEDIA_FRAGMENT = gql`
 
 export const REX_METADATA_FRAGMENT = gql`
     fragment MetadataFragment on Metadata {
-        title {
-            description
-            updatedAt
-            createdAt
-            robots
-            canonical
-            image {
-                ...MediaFragment
-            }
+        title
+        description
+        updatedAt
+        createdAt
+        robots
+        canonical
+        image {
+            ...MediaFragment
         }
     }
     ${REX_MEDIA_FRAGMENT}
