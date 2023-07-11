@@ -89,7 +89,6 @@ const REX_ARTICLE_QRY = gql`
         $includeClang: Boolean!
         $includeSlices: Boolean!
         $includeMetadata: Boolean!
-        $includeBreadcrumbs: Boolean!
     ) {
         article(id: $id) {
             ...ArticleFragment
@@ -113,7 +112,6 @@ const REX_ARTICLE_BY_PATH_QRY = gql`
         $includeClang: Boolean!
         $includeSlices: Boolean!
         $includeMetadata: Boolean!
-        $includeBreadcrumbs: Boolean!
     ) {
         articleByPath(path: $path) {
             ...ArticleFragment
@@ -158,7 +156,6 @@ const REX_SITE_START_ARTICLE_QRY = gql`
         $includeClang: Boolean!
         $includeSlices: Boolean!
         $includeMetadata: Boolean!
-        $includeBreadcrumbs: Boolean!
     ) {
         siteStartArticle {
             ...ArticleFragment
