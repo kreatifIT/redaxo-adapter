@@ -1,6 +1,6 @@
 {
     "name": "redaxo-adapter",
-    "version": "0.0.17",
+    "version": "0.0.19",
     "description": "An adapter for REDAXO CMS that connects to the graphql Addon",
     "scripts": {
         "format": "prettier --write \"src/**/*.ts\"",
