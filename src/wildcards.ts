@@ -10,13 +10,13 @@ export async function getWildcards(clangId: string) {
 export async function getWildcard(
     key: string,
     clangId: string,
-): Promise<string> {
+): Promise<string | null> {
     const { data } = await RedaxoAdapter.query(
         REX_WILDCARD_QRY,
         { key },
         clangId,
     );
-    return data.wildCard.replace;
+    return (data.wildCard?.replace as string) ?? null;
 }
 
 export const REX_WILDCARDS_QRY = gql`
