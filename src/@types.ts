@@ -5,6 +5,7 @@ export type Article = {
     startArticle: boolean;
     siteStartArticle: boolean;
     url: string;
+    link: Link;
     clang: Clang;
     createdAt: string;
     updatedAt: string;
