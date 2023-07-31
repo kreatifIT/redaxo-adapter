@@ -41,10 +41,11 @@ export class RedaxoAdapter {
     ): Promise<GraphQLResponse> {
         return this.executeRequest(
             {
-                mutation: mutation.loc?.source.body,
+                query: mutation.loc?.source.body,
                 variables,
             },
             clangId,
+            false,
         );
     }
 
@@ -61,6 +62,7 @@ export class RedaxoAdapter {
     private static executeRequest(
         body: Record<string, any>,
         clangId: string,
+        throwErrors = true,
     ): Promise<GraphQLResponse> {
         return fetch(this.getGraphQLEndpoint(clangId), {
             method: 'POST',
@@ -81,7 +83,7 @@ export class RedaxoAdapter {
                 return res.text();
             })
             .then((res) => {
-                if (res.errors) {
+                if (res.errors && throwErrors) {
                     throw new Error(
                         'Error in GraphQL response: ' +
                             JSON.stringify(res.errors, null, 2),
