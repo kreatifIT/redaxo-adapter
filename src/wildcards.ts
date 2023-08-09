@@ -19,6 +19,20 @@ export async function getWildcard(
     return (data.wildCard?.replace as string) ?? null;
 }
 
+export async function getSelectedWildcards(
+    clangId: string,
+    keys: string[],
+): Promise<Wildcard[]> {
+    const { data } = await RedaxoAdapter.query(
+        SELECTED_WILDCARDS_QRY,
+        {
+            keys,
+        },
+        clangId,
+    );
+    return data.selectedWildCards;
+}
+
 export const REX_WILDCARDS_QRY = gql`
     query WildCards {
         wildCards {
@@ -33,6 +47,16 @@ export const REX_WILDCARD_QRY = gql`
     query WildCard($key: String!) {
         wildCard(key: $key) {
             replace
+        }
+    }
+`;
+
+export const SELECTED_WILDCARDS_QRY = gql`
+    query SelectedWildCards($keys: [String!]!) {
+        selectedWildCards(keys: $keys) {
+            id
+            replace
+            wildcard
         }
     }
 `;
