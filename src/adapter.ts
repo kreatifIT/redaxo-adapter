@@ -53,7 +53,7 @@ export class RedaxoAdapter {
         const base = this.ENDPOINT;
         if (!base) {
             throw new Error(
-                'No GraphQL endpoint defined. Please initialize the RedaxoAdapter.',
+                '[RedaxoAdapter] No GraphQL endpoint defined. Please initialize the RedaxoAdapter.',
             );
         }
         return base.replace('{{clangId}}', clangId);
@@ -77,17 +77,24 @@ export class RedaxoAdapter {
             }),
         })
             .then((res) => {
+                console.log(res);
                 if (res.ok) {
                     return res.json();
                 }
-                return res.text();
+                throw new Error(
+                    `[RedaxoAdapter] Failed to connect to GraphQL endpoint "${this.getGraphQLEndpoint(
+                        clangId,
+                    )}".\n(${res.status} ${res.statusText})`,
+                );
             })
             .then((res) => {
                 if (res.errors && throwErrors) {
+                    const errorMessages = res.errors
+                        .map((e: any) => e.message)
+                        .join('\n');
                     throw new Error(
-                        'Error in GraphQL response: ' +
+                        `[RedaxoAdapter] Error(s) in GraphQL response:\n${errorMessages}\n\n---\n\nReceived Response:\n` +
                             JSON.stringify(res.errors, null, 2),
-                        res.errors,
                     );
                 }
                 return res;
