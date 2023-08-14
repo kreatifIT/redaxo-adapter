@@ -10,6 +10,7 @@ export type Article = {
     createdAt: string;
     updatedAt: string;
     breadcrumbs: Breadcrumb[];
+    online: boolean;
 };
 
 export type ArticleSlice = {
@@ -20,6 +21,7 @@ export type ArticleSlice = {
     mediaList?: any;
     link?: any;
     linkList?: any;
+    online: boolean;
 };
 
 export type Category = {
@@ -29,6 +31,7 @@ export type Category = {
     startArticle: Article;
     articles: Article[];
     children: Category[];
+    online: boolean;
 };
 
 export type Clang = {
@@ -36,6 +39,7 @@ export type Clang = {
     code: string;
     active: boolean;
     url: string;
+    online: boolean;
 };
 
 export type Link = {

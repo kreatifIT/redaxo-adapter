@@ -101,6 +101,6 @@ export class RedaxoAdapter {
     }
 
     public static getRedaxoRoot(): string {
-        return this.ROOT;
+        return this.ROOT.replace(/\/$/g, '');
     }
 }

@@ -35,6 +35,7 @@ export const REX_CLANG_FRAGMENT = gql`
         name
         code
         url
+        online
         active
         priority
     }
@@ -47,6 +48,7 @@ export const REX_ARTICLE_FRAGMENT = gql`
         url
         createdAt
         updatedAt
+        online
     }
 `;
 
@@ -59,6 +61,7 @@ export const REX_ARTICLE_SLICE_FRAGMENT = gql`
         mediaList
         link
         linkList
+        online
     }
 `;
 
@@ -66,6 +69,7 @@ export const REX_CATEGORY_FRAGMENT = gql`
     fragment CategoryFragment on Category {
         id
         name
+        online
         url
     }
 `;
