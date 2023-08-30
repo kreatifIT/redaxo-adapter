@@ -46,6 +46,7 @@ export type Link = {
     url: string;
     label: string;
     target: string;
+    type: string;
 };
 
 export type Media = {
