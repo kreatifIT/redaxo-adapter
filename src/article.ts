@@ -68,6 +68,22 @@ export async function getSiteStartArticle(
     return data.siteStartArticle as Article;
 }
 
+export async function getSelectedArticles(
+    ids: string[],
+    clangId: string,
+    includes?: ArticleIncludes,
+) {
+    const { data } = await RedaxoAdapter.query(
+        REX_SELECTED_ARTICLES_QRY,
+        {
+            ids,
+            ...getArticleIncludes(includes),
+        },
+        clangId,
+    );
+    return data.selectedArticles as Article[];
+}
+
 function getArticleIncludes(includes?: ArticleIncludes) {
     return {
         includeSlices: includes?.slices || false,
@@ -158,6 +174,29 @@ const REX_SITE_START_ARTICLE_QRY = gql`
         $includeMetadata: Boolean!
     ) {
         siteStartArticle {
+            ...ArticleFragment
+            clang @include(if: $includeClang) {
+                ...ClangFragment
+            }
+            slices @include(if: $includeSlices) {
+                ...ArticleSliceFragment
+            }
+            metadata @include(if: $includeMetadata) {
+                ...MetadataFragment
+            }
+        }
+    }
+    ${FRAGMENTS}
+`;
+
+const REX_SELECTED_ARTICLES_QRY = gql`
+    query selectedArticles(
+        $ids: [ID!]!
+        $includeClang: Boolean!
+        $includeSlices: Boolean!
+        $includeMetadata: Boolean!
+    ) {
+        selectedArticles(ids: $ids) {
             ...ArticleFragment
             clang @include(if: $includeClang) {
                 ...ClangFragment
