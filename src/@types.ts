@@ -108,4 +108,4 @@ export type Breadcrumb = {
 export type Forward = {
     url: string;
     status: number;
-}
+};
