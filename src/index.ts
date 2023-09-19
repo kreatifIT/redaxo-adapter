@@ -9,3 +9,4 @@ export * from './utils';
 export * from './wildcards';
 export * from './navigation';
 export * from './@types';
+export * from './abstract-cache';

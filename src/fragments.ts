@@ -91,3 +91,10 @@ export const REX_NAVIGATION_ITEM_FRAGMENT = gql`
         parentId
     }
 `;
+
+export const REX_FORWARD_FRAGMENT = gql`
+    fragment ForwardFragment on Forward {
+        status
+        url
+    }
+`;

@@ -1,4 +1,5 @@
 import type { DocumentNode } from 'graphql';
+import { AbstractCache } from './abstract-cache';
 
 export type GraphQLResponse = {
     data: any;
@@ -17,17 +18,20 @@ export class RedaxoAdapter {
     private static AUTH_TOKEN: string | undefined;
     private static CACHE = new Map<string, any>();
     private static ALLOW_CACHE = false;
+    private static L2_CACHE: AbstractCache | undefined;
 
     public static init(
         endpoint: string,
         root: string,
         authToken?: string,
         allowCache?: boolean,
+        l2Cache?: AbstractCache,
     ): void {
         this.ENDPOINT = endpoint;
         this.ROOT = root;
         this.AUTH_TOKEN = authToken;
         this.ALLOW_CACHE = allowCache || false;
+        this.L2_CACHE = l2Cache;
     }
 
     public static async query(
@@ -88,16 +92,77 @@ export class RedaxoAdapter {
         const useCache = this.ALLOW_CACHE && !options.disableCache;
         const authToken = options.bearerToken || this.AUTH_TOKEN;
         const cacheKey = JSON.stringify({
-            clangId,
-            body,
+            e: this.getGraphQLEndpoint(clangId),
+            b: body,
         });
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             if (useCache) {
                 const entry = this.CACHE.get(cacheKey);
                 if (entry) {
                     resolve(entry);
+                } else if (this.L2_CACHE) {
+                    let updateL2Cache = false;
+                    const query = body.query as string;
+                    const queryName = query.match(/query\s([a-z0-9_]+)/i);
+                    if (queryName && queryName[1]) {
+                        const l2CacheKey = JSON.stringify({
+                            e: this.getGraphQLEndpoint(clangId),
+                            v: body.variables,
+                            q: queryName[1],
+                        });
+                        const entry = await this.L2_CACHE.get(l2CacheKey);
+                        if (entry) {
+                            resolve(entry);
+                        }
+                        if (
+                            !entry ||
+                            entry.ts <= Date.now() - 60 * 60 * 1000 * 24
+                        ) {
+                            updateL2Cache = true;
+                        }
+                        this.handleRequest(
+                            body,
+                            clangId,
+                            options,
+                            useCache,
+                            cacheKey,
+                            authToken,
+                        ).then((res) => {
+                            resolve(res);
+                            if (updateL2Cache) {
+                                this.L2_CACHE?.set(l2CacheKey, {
+                                    ts: Date.now(),
+                                    ...res,
+                                });
+                            }
+                        });
+                    }
+
+                    return;
                 }
             }
+            this.handleRequest(
+                body,
+                clangId,
+                options,
+                useCache,
+                cacheKey,
+                authToken,
+            ).then((res) => {
+                resolve(res);
+            });
+        });
+    }
+
+    private static handleRequest(
+        body: Record<string, any>,
+        clangId: string,
+        options: RequestOptions,
+        useCache: boolean,
+        cacheKey: string,
+        authToken: string | undefined,
+    ): Promise<any> {
+        return new Promise((resolve, reject) => {
             fetch(this.getGraphQLEndpoint(clangId), {
                 method: 'POST',
                 headers: {
@@ -129,8 +194,8 @@ export class RedaxoAdapter {
                         if (useCache) {
                             this.CACHE.set(cacheKey, res);
                         }
-                        resolve(res);
                     }
+                    resolve(res);
                 });
         });
     }
