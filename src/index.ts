@@ -10,3 +10,4 @@ export * from './wildcards';
 export * from './navigation';
 export * from './@types';
 export * from './abstract-cache';
+export * from './forward';
