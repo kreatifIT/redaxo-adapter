@@ -109,3 +109,11 @@ export type Forward = {
     url: string;
     status: number;
 };
+
+export type ContentType = {
+    type: string;
+    elementId: string;
+    clangs: Clang[];
+    metadata: Metadata;
+    relatedArticle?: Article;
+};
